@@ -228,9 +228,9 @@ void initArduino()
         log_e("Failed to initialize NVS! Error: %u", err);
     }
 #ifdef CONFIG_BT_ENABLED
-    if(!btInUse()){
-        esp_bt_controller_mem_release(ESP_BT_MODE_BTDM);
-    }
+    // if(!btInUse()){
+    //     esp_bt_controller_mem_release(ESP_BT_MODE_BTDM);
+    // }
 #endif
     init();
     initVariant();
