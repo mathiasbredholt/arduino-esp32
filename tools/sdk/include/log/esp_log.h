@@ -18,7 +18,7 @@
 #include <stdint.h>
 #include <stdarg.h>
 #include "sdkconfig.h"
-#include <rom/ets_sys.h>
+#include <esp32/rom/ets_sys.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -106,6 +106,15 @@ uint32_t esp_log_early_timestamp(void);
  */
 void esp_log_write(esp_log_level_t level, const char* tag, const char* format, ...) __attribute__ ((format (printf, 3, 4)));
 
+/**
+ * @brief Write message into the log, va_list variant
+ * @see esp_log_write()
+ *
+ * This function is provided to ease integration toward other logging framework,
+ * so that esp_log can be used as a log sink.
+ */
+void esp_log_writev(esp_log_level_t level, const char* tag, const char* format, va_list args);
+
 /** @cond */
 
 #include "esp_log_internal.h"
@@ -114,7 +123,7 @@ void esp_log_write(esp_log_level_t level, const char* tag, const char* format, .
 #ifndef BOOTLOADER_BUILD
 #define LOG_LOCAL_LEVEL  CONFIG_LOG_DEFAULT_LEVEL
 #else
-#define LOG_LOCAL_LEVEL  CONFIG_LOG_BOOTLOADER_LEVEL
+#define LOG_LOCAL_LEVEL  CONFIG_BOOTLOADER_LOG_LEVEL
 #endif
 #endif
 

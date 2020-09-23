@@ -89,13 +89,11 @@ esp_err_t esp_sleep_disable_wakeup_source(esp_sleep_source_t source);
 
 /**
  * @brief Enable wakeup by ULP coprocessor
- * @note In revisions 0 and 1 of the ESP32, ULP wakeup source
- *       can not be used when RTC_PERIPH power domain is forced
- *       to be powered on (ESP_PD_OPTION_ON) or when ext0 wakeup
- *       source is used.
+ * @note ULP wakeup source cannot be used when RTC_PERIPH power domain is forced
+ *       to be powered on (ESP_PD_OPTION_ON) or when ext0 wakeup source is used.
  * @return
  *      - ESP_OK on success
- *      - ESP_ERR_NOT_SUPPORTED if additional current by touch (CONFIG_ESP32_RTC_EXTERNAL_CRYSTAL_ADDITIONAL_CURRENT) is enabled.
+ *      - ESP_ERR_NOT_SUPPORTED if additional current by touch (CONFIG_ESP32_RTC_EXT_CRYST_ADDIT_CURRENT) is enabled.
  *      - ESP_ERR_INVALID_STATE if ULP co-processor is not enabled or if wakeup triggers conflict
  */
 esp_err_t esp_sleep_enable_ulp_wakeup();
@@ -112,8 +110,7 @@ esp_err_t esp_sleep_enable_timer_wakeup(uint64_t time_in_us);
 /**
  * @brief Enable wakeup by touch sensor
  *
- * @note In revisions 0 and 1 of the ESP32, touch wakeup source
- *       can not be used when RTC_PERIPH power domain is forced
+ * @note Touch wakeup source cannot be used when RTC_PERIPH power domain is forced
  *       to be powered on (ESP_PD_OPTION_ON) or when ext0 wakeup
  *       source is used.
  *
@@ -122,7 +119,7 @@ esp_err_t esp_sleep_enable_timer_wakeup(uint64_t time_in_us);
  *
  * @return
  *      - ESP_OK on success
- *      - ESP_ERR_NOT_SUPPORTED if additional current by touch (CONFIG_ESP32_RTC_EXTERNAL_CRYSTAL_ADDITIONAL_CURRENT) is enabled.
+ *      - ESP_ERR_NOT_SUPPORTED if additional current by touch (CONFIG_ESP32_RTC_EXT_CRYST_ADDIT_CURRENT) is enabled.
  *      - ESP_ERR_INVALID_STATE if wakeup triggers conflict
  */
 esp_err_t esp_sleep_enable_touchpad_wakeup();
@@ -148,8 +145,7 @@ touch_pad_t esp_sleep_get_touchpad_wakeup_status();
  * @note This function does not modify pin configuration. The pin is
  *       configured in esp_sleep_start, immediately before entering sleep mode.
  *
- * @note In revisions 0 and 1 of the ESP32, ext0 wakeup source
- *       can not be used together with touch or ULP wakeup sources.
+ * @note ext0 wakeup source cannot be used together with touch or ULP wakeup sources.
  *
  * @param gpio_num  GPIO number used as wakeup source. Only GPIOs which are have RTC
  *             functionality can be used: 0,2,4,12-15,25-27,32-39.
@@ -206,8 +202,7 @@ esp_err_t esp_sleep_enable_ext1_wakeup(uint64_t mask, esp_sleep_ext1_wakeup_mode
  * wakeup level, for each GPIO which is used for wakeup.
  * Then call this function to enable wakeup feature.
  *
- * @note In revisions 0 and 1 of the ESP32, GPIO wakeup source
- *       can not be used together with touch or ULP wakeup sources.
+ * @note GPIO wakeup source cannot be used together with touch or ULP wakeup sources.
  *
  * @return
  *      - ESP_OK on success
@@ -294,16 +289,6 @@ esp_err_t esp_light_sleep_start();
  * @param time_in_us  deep-sleep time, unit: microsecond
  */
 void esp_deep_sleep(uint64_t time_in_us) __attribute__((noreturn));
-
-/**
- * @brief Enter deep-sleep mode
- *
- * Function has been renamed to esp_deep_sleep.
- * This name is deprecated and will be removed in a future version.
- *
- * @param time_in_us  deep-sleep time, unit: microsecond
- */
-void system_deep_sleep(uint64_t time_in_us) __attribute__((noreturn, deprecated));
 
 
 /**

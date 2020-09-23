@@ -15,8 +15,7 @@
 #ifndef __DRIVER_SIGMADELTA_H__
 #define __DRIVER_SIGMADELTA_H__
 #include <esp_types.h>
-#include "soc/gpio_sd_struct.h"
-#include "soc/gpio_sd_reg.h"
+#include "soc/sigmadelta_periph.h"
 #include "driver/gpio.h"
 
 #ifdef _cplusplus
@@ -102,7 +101,7 @@ esp_err_t sigmadelta_set_prescale(sigmadelta_channel_t channel, uint8_t prescale
  */
 esp_err_t sigmadelta_set_pin(sigmadelta_channel_t channel, gpio_num_t gpio_num);
 
-#ifdef _cplusplus
+#ifdef __cplusplus
 }
 #endif
 
